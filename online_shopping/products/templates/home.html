@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HOME</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+
+
+    </script>
+</head>
+<body>
+<center><h1>Add New Products</h1>
+    <hr>
+    <br>
+    <form id="basic-form" action="" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="name">NAME: </label><br>
+            <input type="text" id="name" placeholder="Enter product name" required><br>
+        </div>
+        <div>
+            <label for="desc">DESCRIPTION: </label><br>
+            <input type="text" id="desc" placeholder="Enter product details" required>
+
+        </div>
+        <div>
+            <label for="price">Price: </label><br>
+            <input type="number" id="price" placeholder="Enter product price" required>
+        </div>
+        <button class="btn btn-primary" id="sub-btn" type="submit">Submit</button>
+    </form>
+    <br><a style="text-decoration:none" href="{% url 'select' %}">Go to List Page</a></center>
+    <div class="modal"><!-- Place at bottom of page --></div>
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        console.log('Page is rendered and we can play with it!!');
+        $("#sub-btn").click(function(e) {
+
+            var token = '{{csrf_token}}';
+
+            console.log('this is the token', token);
+            console.log('Submit button was clicked, we are ready for the ajax calls!');
+            let name = document.getElementById("name").value;
+            let desc = document.getElementById("desc").value;
+            let price = document.getElementById("price").value;
+
+            const dataObj = {
+                "name": name,
+                "description": desc,
+                "price": price
+            }
+
+            console.log('This is the data obj', dataObj);
+
+            if(name == "" || desc == "" || price == "") {
+                console.log('One of the field was empty!');
+            }
+            else{
+            $.ajax({
+                    headers: { "X-CSRFToken": token },
+                    type: "POST",
+                    url: "{% url 'create' %}",
+                    data: dataObj,
+                    success: function (data) {
+                        console.log('success');
+                        alert("Data Added Successfully...!");
+                    },
+                    error: function (request, status, error) {
+                        console.log('This was the error: ', error)
+                    }
+            });}
+
+        })
+
+    })
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+FRONT END --ajax-->>>         \     <<<---views.py-- BACKEND
+
+

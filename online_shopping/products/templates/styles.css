@@ -1,0 +1,30 @@
+a{
+background-color: white;
+color: black;
+padding: 5px;
+text-decoration: none;
+border: 1px solid black;
+}
+a:hover {
+background-color: #2CD72C;
+color: white;
+
+.link1{
+background-color: white;
+color: black;
+padding: 5px;
+border: 1px solid black;
+}
+link1:hover {
+background-color: #2CD72C;
+color: white;
+
+.link2{
+background-color: white;
+color: black;
+padding: 5px;
+border: 1px solid black;
+}
+link2:hover {
+background-color: #DE2436;
+color: white;
