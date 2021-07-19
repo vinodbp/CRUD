@@ -3,6 +3,10 @@ from .models import Products
 
 
 # Create your views here.
+def index(request):
+    return render(request, 'index.html')
+
+
 def select(request):
     products = Products.objects.all()
     # print("this is the products object", products)
@@ -29,7 +33,7 @@ def Insert(request):
 
 def edit(request, id):
     products = Products.objects.get(id=id)
-    # form = ProductsForm(instance=products)
+    #form = Products(instance=products)
 
     # needs to be changed!!!!!!
     if request.method == 'POST':
@@ -42,3 +46,9 @@ def delete(request, id):
     products = Products.objects.get(id=id)
     products.delete()
     return redirect('/select')
+
+def search(request):
+    search = request.GET['search']
+    products = Products.objects.filter(name__icontains=search)
+    params = {'products': products}
+    return render(request, 'search.html', params)
